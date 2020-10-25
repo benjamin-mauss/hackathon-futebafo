@@ -1,0 +1,104 @@
+
+@font-face {
+        font-family: MuseoModerno;
+        src: url('fonts\\museomoderno.ttf');
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('fonts\\roboto.ttf');
+}
+
+@media ( max-width: 74000px ) {
+   
+    a{ 
+    text-decoration:none; 
+    color: blue;
+    } 
+    #logo{
+        height: 187px;
+        width: 184px;
+        left: 88px;
+        top: 68px;
+        border-radius: 0px;
+
+    }
+    #logo_museu{
+        height: 78px;
+        width: 78px;
+        left: 140px;
+        top: 255px;
+        border-radius: 0px;
+
+    }
+
+    .logos{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #escrita_1{
+        
+
+        font-family: MuseoModerno;
+        font-weight: bold;
+        font-size: 19px;
+        align-items: center;
+        text-align: center;
+        color: #512263;
+    }
+
+    
+    #email, #senha{
+        margin-top: 10px;
+        height: 52px;
+        width: 343px;
+        left: 0px;
+        top: 0px;
+        border-radius: 10px;
+        background: #F3F2F2;
+        border: 1px solid #34183F;
+
+    }
+    #escrita_2{
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 20px;
+
+        font-family: Roboto;
+        font-size: 14px;
+
+        color: #512263;
+
+    }
+    #enviar{
+        height: 52px;
+        width: 343px;
+        left: 0px;
+        top: 0px;
+        border-radius: 6px;
+
+        background: #A3C54B;
+        color:white;
+
+        border: 2px solid #A3C54B;
+
+        font-family: Roboto;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 15px;
+        letter-spacing: 0.04em;
+        text-align: center;
+
+    }
+
+    #fb{
+        color:red;
+        text-align: center;
+    }
+    form{
+        text-align: center;
+    }
+}

@@ -1,0 +1,75 @@
+
+@font-face {
+    font-family: MuseoModerno;
+    src: url('fonts\\museomoderno.ttf');
+}
+
+@font-face {
+font-family: Roboto;
+src: url('fonts\\roboto.ttf');
+}
+
+#logo_bola{
+    height: 230px;
+    margin-bottom: 0px;
+    
+}
+
+body{
+    text-align: center;
+    background: #60358F;
+    
+}
+#vc{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    color: white;
+    font-family: MuseoModerno;
+    padding-top: 0%;
+    padding-bottom: 0%;
+}
+#proibidas{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto; 
+    font-family: Roboto;
+    font-size: 18px;
+    color: white;
+    
+
+}
+#tag{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+#fonte{
+    color: wheat;
+    width: 300px;
+    font-size: 11px;
+    margin-left: auto;
+    margin-right: auto;
+}
+a{ 
+    text-decoration:none; 
+    color:cyan;
+} 
+#compartilhar{
+    width: 200px;
+}
+
+#textinho{
+    color: wheat;
+    width: 300px;
+    font-size: 11.2px;
+    font-family: Roboto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#logo_museu{
+    height: 100px;
+    width: 150px;
+}
