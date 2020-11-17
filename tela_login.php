@@ -2,11 +2,13 @@
 session_start();
 if(!empty($_SESSION['nick'])){
     echo "<META http-equiv='refresh' content='0;URL=/tela_1.php?fb=ja_logado' />";
+    exit();
 }
 if (!empty( $_GET['fb'])){
     $fb = $_GET['fb'];
    if($fb == "success"){
     echo "<META http-equiv='refresh' content='0;URL=/tela_1.php' />";
+    exit();
    }
    else if($fb == "falta_parametro"){
     echo "<div id='fb'>Não deixe nenhum dos campos em branco!</div>";
