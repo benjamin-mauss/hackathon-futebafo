@@ -6,27 +6,33 @@ session_start(); // inicia a sessão
 /*INICIO VERIFICAÇÕES DE SEGURANÇA */
 if(empty($_SESSION["nick"]) || empty($_SESSION["email"]) || empty($_SESSION["id"])){
     session_destroy();
+    http_response_code(401);
     echo '{"success":false, "error":"sessão invalida"}'; exit();
 }
 
 $request_body = file_get_contents('php://input');
 
 if(empty($request_body)){
+    http_response_code(400);
     echo '{"success":false, "error":"falta parametro"}'; exit();
 }
 
 $_json = json_decode($request_body, true);
 if(json_last_error() != JSON_ERROR_NONE){
+    http_response_code(400);
     echo '{"success":false, "error":"não é json}"}'; exit();
 }
 if(empty($_json["aposta"])){
+    http_response_code(400);
     echo '{"success":false, "error":"não tem aposta}"}'; exit();
 }
 if(sizeof($_json["aposta"]) < 3){
+    http_response_code(400);
     echo '{"success":false, "error":"aposta com menor que 3 cartas"}'; exit();
 }
 for($i = 0; $i < sizeof($_json["aposta"]); $i++){ // verifica se todas são numeros
     if(!is_numeric($_json["aposta"][$i])){
+        http_response_code(400);
         echo '{"success":false, "error":"nem todos as aposta são numeros"}'; exit();
     }
 }
@@ -44,6 +50,7 @@ if($select->num_rows){
                 continue;
             }
             else{
+                http_response_code(400);
                 echo '{"success":false, "error":"você não tem alguma carta que selecionou"}'; exit(); // 
             }
         }
@@ -53,13 +60,16 @@ if($select->num_rows){
 
         for($i=0;$i<sizeof($_json["aposta"]); $i++){ // pra cada item da aposta            
             if($num_time_db[$_json["aposta"][$i]] < $num_time_aposta[$_json["aposta"][$i]]){
-                echo '{"success":false, "error":"carta foi repitida mais vezes que no exite baralho"}'; exit(); 
+                http_response_code(400);
+                echo '{"success":false, "error":"carta foi repitida mais vezes que no existe baralho"}'; exit(); 
             }
         }        
     }else{
+        http_response_code(400);
         echo '{"success":false, "error":"estás apostando mais cartas do que tens"}'; exit(); // 
     }
 }else{
+    http_response_code(400); // 500?
     echo '{"success":false, "error":"erro genérico (8)"}'; exit(); // erro genérico
 }
 /*FIM VERIFICAÇÕES DE SEGURANÇA */

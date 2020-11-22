@@ -1,6 +1,7 @@
 <?php
+    header("Access-Control-Allow-Origin: http://localhost:5000");
 
-// e vamo lá
+// e vamo l?
 // https://stackoverflow.com/questions/14467673/enable-cors-in-htaccess
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {

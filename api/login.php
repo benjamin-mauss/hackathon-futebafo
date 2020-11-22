@@ -2,7 +2,7 @@
 
 $request_body = file_get_contents('php://input');
 $request_data = json_decode($request_body, true);
-header('Access-Control-Allow-Origin: "*"');
+header('Access-Control-Allow-Origin: *');
 
 session_start(); // inicia a sessão
 if(!empty($_SESSION["nick"])){
@@ -35,7 +35,7 @@ if($select->num_rows){
 }else{
     $response["success"] = false;
     $response["error"] = "incorrect_login";
-    http_response_code(400);
+    http_response_code(401);
     echo(json_encode($response));
 }
 //echo var_dump($select)
