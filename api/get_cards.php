@@ -1,9 +1,11 @@
 <?php
 include 'cors.php';
 session_start(); // inicia a sessão
+date_default_timezone_set('America/Sao_Paulo');
 /*INICIO VERIFICAÇÕES DE SEGURANÇA */
 if(empty($_SESSION["nick"]) || empty($_SESSION["email"]) || empty($_SESSION["id"])){
     session_destroy();
+    http_response_code(400);
     echo '{"success":false, "error":"sessão invalida"}'; exit();
 }
 
