@@ -8,6 +8,8 @@ session_start(); // inicia a sessão
 if(!empty($_SESSION["nick"])){
     $response['status'] = "logged_in";
     $response["nick"] = $_SESSION['nick'];
+    $response["email"] = $row['email'];
+    
     echo (json_encode($response));
     
     exit();
