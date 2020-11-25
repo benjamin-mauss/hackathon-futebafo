@@ -76,13 +76,17 @@ if($select->num_rows){
 
 
 // abre metadados
-$my_str = file_get_contents('../includes/metadados.json');
+$my_str = file_get_contents('metadados.json');
 $metadados = json_decode($my_str, true);
 
-// gera array de cartas oponente
-$enemy_cards = [];
-for ($i=0; $i<sizeof($_json['aposta']); $i++){
-     $enemy_cards[$i] = $metadados[rand(0, 49)]["nome"];
+// traz as cartas/figurinhas já trazidas anteriormente
+$enemy_cards = $_SESSION['opponent_cards'];
+
+if (empty($enemy_cards)) {
+    // gera array de cartas oponente
+    for ($i=0; $i<sizeof($_json['aposta']); $i++){
+         $enemy_cards[$i] = $metadados[rand(0, 49)]["nome"];
+    }
 }
 
 $cartas_perdidas = []; // ate agora
@@ -189,9 +193,9 @@ for ($i=0; $i<sizeof($array_viradas); $i++){
 
 }
 
-   
-
 print(json_encode($array_response)); // responde com o json das cartas viradas
 
+// agora que já tá concluído, dá pra tirar as cartas pra evitar problema
+$_SESSION['opponent_cards'] = NULL;
 
 ?>
