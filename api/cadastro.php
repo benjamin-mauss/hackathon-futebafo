@@ -1,6 +1,10 @@
 <?php
 //echo "1";
 
+
+$request_body = file_get_contents('php://input');
+$request_data = json_decode($request_body, true);
+
 session_start(); // inicia a sessão
 date_default_timezone_set('America/Sao_Paulo');
 if(!empty($_SESSION["nick"])){
@@ -8,7 +12,9 @@ if(!empty($_SESSION["nick"])){
     echo '{"success":false, "error":"logado"}'; exit();
     exit();
 }
-if(empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['nick'])){
+
+if(empty($request_data['email']) || empty($request_data['senha']) || empty($request_data['nick'])){
+
     http_response_code(400);
     echo '{"success":false, "error":"falta_parametro"}'; exit();
 }
@@ -26,9 +32,11 @@ $final_json = substr_replace($final_json, ']', strlen($final_json)-1); // array 
 /*Conecta com a DB e faz query segura */
 
 $connect = new mysqli('localhost','root','', 'hackathon_db'); // conectar db
-$email =  mysqli_real_escape_string($connect, $_POST['email']);
-$nick =  mysqli_real_escape_string($connect, $_POST['nick']); 
-$senha = sha1($_POST['senha']);
+
+$email =  mysqli_real_escape_string($connect, $request_data['email']);
+$nick =  mysqli_real_escape_string($connect, $request_data['nick']); 
+$senha = sha1($request_data['senha']);
+
 
 if(filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_STRING  ) == false){
     http_response_code(400);
@@ -43,7 +51,8 @@ if($select){
     $select = $connect->query("SELECT * FROM users WHERE email = '$email' AND nick = '$nick'"); // pra pegar o id '-'
     $row = $select->fetch_assoc();
 
-    echo "Usuário criado com sucesso!"; // also, criar sessão e logar automaticamente
+    // echo "Usuário criado com sucesso!"; // also, criar sessão e logar automaticamente
+
     $_SESSION["email"] = $email;
     $_SESSION["nick"] = $nick;
     $_SESSION["id"] = $row["ID"];
