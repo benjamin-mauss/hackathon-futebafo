@@ -46,7 +46,7 @@ if($select){
     $select = $connect->query("SELECT * FROM users WHERE email = '$email' AND nick = '$nick'"); // pra pegar o id '-'
     $row = $select->fetch_assoc();
 
-    echo "Usuário criado com sucesso!"; // also, criar sessão e logar automaticamente
+    // echo "Usuário criado com sucesso!"; // also, criar sessão e logar automaticamente
     $_SESSION["email"] = $email;
     $_SESSION["nick"] = $nick;
     $_SESSION["id"] = $row["ID"];
