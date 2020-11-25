@@ -192,6 +192,9 @@ for ($i=0; $i<sizeof($array_viradas); $i++){
         'numero'   => $array_viradas[$i],
         'addrr_img'     => $array_filenames[$i]
     );
+    
+    $array_response["new_cards"] = $array_viradas;
+
 }
 
    
