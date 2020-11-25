@@ -20,11 +20,11 @@ if(empty($request_body)){
 $_json = json_decode($request_body, true);
 if(json_last_error() != JSON_ERROR_NONE){
     http_response_code(400);
-    echo '{"success":false, "error":"não é json}"}'; exit();
+    echo '{"success":false, "error":"não é json"}'; exit();
 }
 if(empty($_json["aposta"])){
     http_response_code(400);
-    echo '{"success":false, "error":"não tem aposta}"}'; exit();
+    echo '{"success":false, "error":"não tem aposta"}'; exit();
 }
 if(sizeof($_json["aposta"]) < 3){
     http_response_code(400);
@@ -85,10 +85,6 @@ for ($i=0; $i<sizeof($_json['aposta']); $i++){
      $enemy_cards[$i] = $metadados[rand(0, 49)]["nome"];
 }
 
-//print("\nMy cards    = " . json_encode($cards, true));
-//print("\nMy apost    = " . json_encode($_json["aposta"], true));
-
-// gera, aleatoriamente, um array de cartas que perdermos
 $cartas_perdidas = []; // ate agora
 for ($i=0; $i < sizeof($_json["aposta"]); $i++){
     if((rand() % 100) > 30){ // 70% de taxa de vitória para minhas proprias cartas
@@ -98,7 +94,6 @@ for ($i=0; $i < sizeof($_json["aposta"]); $i++){
         array_push($cartas_perdidas, $_json["aposta"][$i]);
     }
 }
-//print("\nEnemy cards = " . json_encode($enemy_cards, true));
 
 // gera, aleatoriamente, um array de cartas que ganhamos do inimigo
 $cartas_ganhas_do_inimigo = [];
@@ -109,8 +104,6 @@ for ($i=0; $i < sizeof($enemy_cards); $i++){
         // deixou de ganhar        
     }
 }
-//echo "\n PERDIDAS   = " . json_encode($cartas_perdidas);
-//echo "\n GANHAS     = " . json_encode($cartas_ganhas_do_inimigo);
 $cards_db = json_decode($row['cards'], true);
 
 /* funçoes auxiliares */ 
@@ -152,7 +145,6 @@ for ($k=0; $k < sizeof($cartas_perdidas); $k++){ // pra cada carta perdida
     array_push($array_viradas, $cartas_ganhas_do_inimigo[$k]); // add pro viradas
 }
 
-//echo "FINAL      = " . json_encode($array_final);
 sort($array_final); // crescente, pra ficar mais bonitin
 $db_array_final = json_encode($array_final);
 

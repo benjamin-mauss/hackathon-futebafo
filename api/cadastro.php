@@ -4,12 +4,13 @@
 session_start(); // inicia a sessão
 date_default_timezone_set('America/Sao_Paulo');
 if(!empty($_SESSION["nick"])){
-    echo "<META http-equiv='refresh' content='0;URL=/tela_1.php'>";
+    http_response_code(400);
+    echo '{"success":false, "error":"logado"}'; exit();
     exit();
 }
 if(empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['nick'])){
-    echo "<META http-equiv='refresh' content='0;URL=/tela_registro.php?fb=falta_parametro'>";
-    exit();
+    http_response_code(400);
+    echo '{"success":false, "error":"falta_parametro"}'; exit();
 }
 
 /* abre json e pega 4 cartas aleatorias, então transforma em array json */ // kkkk n sabia do json_encode até entao
@@ -30,8 +31,8 @@ $nick =  mysqli_real_escape_string($connect, $_POST['nick']);
 $senha = sha1($_POST['senha']);
 
 if(filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_STRING  ) == false){
-    echo "<META http-equiv='refresh' content='0;URL=/tela_registro.php?fb=email_invalido'>";
-    exit();
+    http_response_code(400);
+    echo '{"success":false, "error":"email_invalido"}'; exit();
 }
 
 $time = time();
@@ -46,9 +47,9 @@ if($select){
     $_SESSION["email"] = $email;
     $_SESSION["nick"] = $nick;
     $_SESSION["id"] = $row["ID"];
-    echo "<META http-equiv='refresh' content='0;URL=/tela_1.php'>";
+    echo "{\"success\":true, \"nick\":\"$nick\"}";
 }else{
-    echo "<META http-equiv='refresh' content='0;URL=/tela_registro.php?fb=ja_usado'>";
-    echo "Email ou nickname já utilizado!";
+    http_response_code(400);
+    echo '{"success":false, "error":"email_or_nickname_already_in_use"}'; exit();
 }
 ?>
