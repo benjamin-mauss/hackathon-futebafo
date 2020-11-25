@@ -1,15 +1,10 @@
 <?php
+include 'cors.php';
 session_start(); // inicia a sessão
-
-
 /*INICIO VERIFICAÇÕES DE SEGURANÇA */
 if(empty($_SESSION["nick"]) || empty($_SESSION["email"]) || empty($_SESSION["id"])){
     session_destroy();
     echo '{"success":false, "error":"sessão invalida"}'; exit();
-}
-if($_SERVER['REQUEST_METHOD'] != 'POST'){
-    echo 'not post';
-    exit();
 }
 
 function retorna_filename_pelo_numero_inicial($numero_inicial){
@@ -46,6 +41,7 @@ for ($i=0; $i<sizeof($cards); $i++){
         'numero'   => $cards[$i],
         'addrr_img'     => $array_filenames[$i]
     );
+    $array_response["cards"] = $cards;
 }
 
    

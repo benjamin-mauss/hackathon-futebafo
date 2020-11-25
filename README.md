@@ -12,6 +12,7 @@ email Varchar(100) UNIQUE NOT NULL,
 nick Varchar(40) UNIQUE NOT NULL,
 senha Varchar(100) NOT NULL,
 login_times Int DEFAULT 0 NOT NULL,
+last_login_bonus int NOT NULL,
 cards VARCHAR(2048)
 );
 

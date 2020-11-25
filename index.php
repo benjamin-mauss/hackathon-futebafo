@@ -1,3 +1,10 @@
+
+
+<?php 
+
+header('Location: /tela_login.php');
+exit();
+?>
 <html>
     
     
