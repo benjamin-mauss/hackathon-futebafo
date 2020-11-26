@@ -76,13 +76,17 @@ if($select->num_rows){
 
 
 // abre metadados
-$my_str = file_get_contents('../includes/metadados.json');
+$my_str = file_get_contents('metadados.json');
 $metadados = json_decode($my_str, true);
 
-// gera array de cartas oponente
-$enemy_cards = [];
-for ($i=0; $i<sizeof($_json['aposta']); $i++){
-     $enemy_cards[$i] = $metadados[rand(0, 49)]["nome"];
+// traz as cartas/figurinhas já sorteadas anteriormente
+$enemy_cards = $_SESSION['opponent_cards'];
+
+if (empty($enemy_cards)  || (sizeof($enemy_cards) != sizeof($_json["aposta"]))) {
+    // gera array de cartas oponente
+    for ($i=0; $i<sizeof($_json['aposta']); $i++){
+         $enemy_cards[$i] = $metadados[rand(0, 49)]["nome"];
+    }
 }
 
 $cartas_perdidas = []; // ate agora
@@ -95,13 +99,15 @@ for ($i=0; $i < sizeof($_json["aposta"]); $i++){
     }
 }
 
+$cartas_nao_viradas_do_inimigo = [];
+
 // gera, aleatoriamente, um array de cartas que ganhamos do inimigo
 $cartas_ganhas_do_inimigo = [];
 for ($i=0; $i < sizeof($enemy_cards); $i++){
     if((rand() % 100) > 50){ // 50% de taxa de vitória para cartas do inimigo
         array_push($cartas_ganhas_do_inimigo, $enemy_cards[$i]);
     }else{
-        // deixou de ganhar        
+        array_push($cartas_nao_viradas_do_inimigo, $enemy_cards[$i]);
     }
 }
 $cards_db = json_decode($row['cards'], true);
@@ -186,12 +192,13 @@ for ($i=0; $i<sizeof($array_viradas); $i++){
     );
 
     $array_response["new_cards"] = $array_viradas;
+    $array_response["non_flipped"] = array_merge($cartas_perdidas, $cartas_nao_viradas_do_inimigo);
 
 }
 
-   
-
 print(json_encode($array_response)); // responde com o json das cartas viradas
 
+// agora que já tá concluído, dá pra tirar as cartas pra evitar problema
+$_SESSION['opponent_cards'] = NULL;
 
 ?>
