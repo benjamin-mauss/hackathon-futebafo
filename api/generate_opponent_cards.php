@@ -1,8 +1,14 @@
 <?php
 session_start(); 
-$quantity = $_GET["quantity"];
+if(empty($_SESSION["nick"]) || empty($_SESSION["email"]) || empty($_SESSION["id"])){
+    session_destroy();
+    http_response_code(401);
+    echo '{"success":false, "error":"sessão invalida"}'; exit();
+}
 
-// TODO: verificações de segurança. nick válido, 3 ou mais cards.
+
+$quantity = $_GET["quantity"]; //json?
+
 
 // abre metadados
 $my_str = file_get_contents('metadados.json');
@@ -16,6 +22,7 @@ for ($i=0; $i<$quantity; $i++){
 
 // saída temporária. se tiver ideia melhor, chama no commit
 $_SESSION['opponent_cards'] = $enemy_cards;
-$response['opponent_cards'] = json_encode($enemy_cards);
+$response['opponent_cards'] = $enemy_cards;
 
+echo json_encode($response);
 ?>
