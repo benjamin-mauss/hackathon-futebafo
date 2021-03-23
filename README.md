@@ -1,7 +1,7 @@
 # hackathon futebafo
 hackathon 2020
 ### comandos sql para settar db servidor
-```
+```sql
 CREATE DATABASE hackathon_db;
 
 use hackathon_db;
